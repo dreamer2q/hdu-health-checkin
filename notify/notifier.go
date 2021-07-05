@@ -16,8 +16,8 @@ var (
 const (
 	//!** 设置权限为 `仅限制发送邮件`, 必要时将 AccessKey 删除 **//
 	// 刚推上去就收到了阿里云的邮件，因此我把下面这个密钥删除了
-	accessKey    = "LTAI4GDxKFg589hNy4DZZTyN"
-	accessSecret = "xhObpIT8z9IlDPNGkas90ddhjjHjqj"
+	accessKey    = ""
+	accessSecret = ""
 )
 
 func init() {
