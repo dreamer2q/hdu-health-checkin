@@ -1,4 +1,4 @@
-# HDU Health CheckIn
+# HDU Health CheckIn & Request For A Leave
 
 > This Repo only contains a go package && a demo, which means you have to code for yourself
 >
