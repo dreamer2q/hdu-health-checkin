@@ -16,6 +16,7 @@ var (
 )
 
 func main() {
+	notify.Init(conf.AccessKey, conf.AccessSecret)
 	client = checkin.New(checkin.Config{
 		StaffID:     conf.StaffID,
 		StaffName:   conf.StaffName,

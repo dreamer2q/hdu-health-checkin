@@ -13,16 +13,9 @@ var (
 	notifier *dm.Client
 )
 
-const (
-	//!** 设置权限为 `仅限制发送邮件`, 必要时将 AccessKey 删除 **//
-	// 刚推上去就收到了阿里云的邮件，因此我把下面这个密钥删除了
-	accessKey    = "LTAI5tQkDjYaxmzgtyGr9VEn"
-	accessSecret = "2CqLad4sZKmWMTPMZGxH3NDwERjfxQ"
-)
-
-func init() {
+func Init(key, secret string) {
 	client, err := dm.NewClientWithAccessKey(
-		"cn-hangzhou", accessKey, accessSecret)
+		"cn-hangzhou", key, secret)
 	if err != nil {
 		panic(err)
 	}

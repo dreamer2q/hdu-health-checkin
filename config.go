@@ -11,6 +11,9 @@ type config struct {
 	City      string
 	Country   string
 	Token     string
+
+	AccessKey    string
+	AccessSecret string
 }
 
 var (
