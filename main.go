@@ -6,14 +6,20 @@ import (
 	"log"
 	"main/checkin"
 	"main/notify"
+	"math/rand"
 	"os"
 	"strings"
+	"time"
 )
 
 var (
 	client *checkin.Client
 	sb     = &strings.Builder{}
 )
+
+func init() {
+	rand.Seed(time.Now().Unix())
+}
 
 func main() {
 	notify.Init(conf.AccessKey, conf.AccessSecret)
@@ -26,10 +32,18 @@ func main() {
 		AccessToken: conf.Token,
 	})
 
+	randDelay()
 	_ = start()
 	_ = notify.New("健康打卡成功", sb.String()).
 		Notify(conf.Receiver)
 	log.Printf("success")
+}
+
+func randDelay() {
+	rn := rand.Intn(180)
+	dur := time.Duration(rn) * time.Second
+	log.Printf("randDelay: %v", dur)
+	time.Sleep(dur)
 }
 
 func writeLine(format string, v ...interface{}) {
@@ -79,22 +93,25 @@ func start() error {
 	} else {
 		writeLine("3. 打卡结果: %s\n", result)
 	}
-	info, err = client.GetTodayLeave()
-	if err != nil {
-		return writeError("获取通行信息失败：%v", err)
-	}
-	writeLine("4. 获取通信信息：%s", info)
-	var leave = struct {
-		detail []json.RawMessage
-	}{}
-	ensure(json.Unmarshal(info, &leave))
-	if len(leave.detail) > 0 {
-		return writeError("已有出入通行许可，跳过")
-	}
-	info, err = client.RequestLeave("0")
-	if err != nil {
-		return writeError("申请出入校失败：%v", err)
-	}
-	writeLine("5. 获取出入校通行许可：%s", info)
+
+	/*
+		info, err = client.GetTodayLeave()
+		if err != nil {
+			return writeError("获取通行信息失败：%v", err)
+		}
+		writeLine("4. 获取通信信息：%s", info)
+		var leave = struct {
+			detail []json.RawMessage
+		}{}
+		ensure(json.Unmarshal(info, &leave))
+		if len(leave.detail) > 0 {
+			return writeError("已有出入通行许可，跳过")
+		}
+		info, err = client.RequestLeave("0")
+		if err != nil {
+			return writeError("申请出入校失败：%v", err)
+		}
+		writeLine("5. 获取出入校通行许可：%s", info)
+	*/
 	return nil
 }
