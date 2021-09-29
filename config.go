@@ -1,7 +1,10 @@
 package main
 
-import "main/checkin"
-import "github.com/BurntSushi/toml"
+import (
+	"main/checkin"
+
+	"github.com/BurntSushi/toml"
+)
 
 type config struct {
 	Receiver  string
@@ -51,6 +54,7 @@ var (
 		"ques21": "否",
 		"ques22": "否",
 		"ques23": "否",
+		"ques24": "共二针 - 已完成第二针",
 		"carTo": []string{
 			//Province
 			"330000",
